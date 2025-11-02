@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Professional Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Heroicons for modern icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Define the custom colors and font based on the reference site */
+        :root {
+            --dark-bg: #101010;
+            --card-bg: #1c1c1c;
+            --accent-color: #00ffff; /* Bright Cyan */
+            --text-light: #e0e0e0;
+            --text-medium: #a0a0a0;
+        }
+
+        /* Set the global style, font, and smooth scrolling */
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar styling (optional but looks great on dark themes) */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 4px;
+        }
+
+        /* Custom Styles for Navbar and Accents */
+        .header-nav {
+            background-color: var(--dark-bg);
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .accent-text {
+            color: var(--accent-color);
+        }
+        .accent-border {
+            border-color: var(--accent-color);
+        }
+        .accent-bg {
+            background-color: var(--accent-color);
+        }
+        
+        /* Custom styles for the Skills Tab section */
+        .skill-tab-button {
+            transition: all 0.3s ease;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            background-color: transparent;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+        }
+        .skill-tab-button.active {
+            color: var(--dark-bg);
+            background-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+        }
+
+        /* Custom styles for the Education Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--accent-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        .timeline-container.left {
+            left: 0;
+        }
+        .timeline-container.right {
+            left: 50%;
+        }
+        .timeline-container::after {
+            content: ' ';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            right: -7px;
+            background-color: var(--dark-bg);
+            border: 2px solid var(--accent-color);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-container.right::after {
+            left: -8px;
+        }
+        .timeline-container.right {
+            text-align: left;
+        }
+        @media (max-width: 600px) {
+            .timeline::after {
+                left: 31px;
+            }
+            .timeline-container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-container.right {
+                left: 0%;
+            }
+            .timeline-container.left::after, .timeline-container.right::after {
+                left: 23px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header id="navbar" class="header-nav sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center p-4">
+            <div class="text-2xl font-bold accent-text flex items-center">
+                <i data-lucide="briefcase-business" class="mr-2"></i> Jagruti Portfolio
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#about" class="hover:accent-text transition duration-200">About</a>
+                <a href="#skills" class="hover:accent-text transition duration-200">Skills</a>
+                <a href="#education" class="hover:accent-text transition duration-200">Education</a>
+                <a href="#projects" class="hover:accent-text transition duration-200">Projects</a>
+                <a href="#contact" class="hover:accent-text transition duration-200">Contact</a>
+            </nav>
+            <button id="menu-button" class="md:hidden text-2xl p-2 rounded-lg hover:accent-text transition duration-200">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="md:hidden absolute w-full bg-slate-900 border-t border-gray-800 hidden">
+            <nav class="flex flex-col p-4 text-center space-y-2">
+                <a href="#about" class="py-2 hover:accent-text transition duration-200">About</a>
+                <a href="#skills" class="py-2 hover:accent-text transition duration-200">Skills</a>
+                <a href="#education" class="py-2 hover:accent-text transition duration-200">Education</a>
+                <a href="#projects" class="py-2 hover:accent-text transition duration-200">Projects</a>
+                <a href="#contact" class="py-2 hover:accent-text transition duration-200">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+
+        <!-- 1. About/Hero Section - Adjusted image alignment -->
+        <section id="about" class="min-h-screen flex items-center pt-16 pb-16">
+            <div class="flex flex-col md:flex-row items-center gap-16 max-w-6xl mx-auto px-4">
+                
+                <!-- Text Content (Left Side) -->
+                <div class="md:w-[55%] md:order-1 order-2 text-center md:text-left">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4">
+                        Hi, I am <br>
+                        Jagruti Dipak Wagh
+                    </h1>
+                    <p class="text-xl sm:text-2xl mb-6 text-gray-400">
+                        I am an <span class="accent-text font-bold">Motivated IT Graduate & Web Developer</span>
+                    </p>
+                    <p class="text-lg text-gray-400 mb-8 max-w-xl">
+                        Motivated and detail-oriented IT graduate with a strong foundation in HTML, CSS, and front-end development. Skilled in building responsive, user-friendly websites and eager to apply technical expertise in a professional environment. Seeking an opportunity to contribute to innovative projects while gaining hands-on industry experience and enhancing my web development skills.
+                    </p>
+                    
+                    <!-- Social Links -->
+                    <div class="flex space-x-4 mb-8 justify-center md:justify-start">
+                        <a href="https://github.com/jagruti-tech" target="_blank" class="accent-text text-3xl hover:opacity-75 transition"><i data-lucide="github"></i></a>
+                        <a href="https://www.linkedin.com/in/jagruti-wagh-017948227/" target="_blank" class="accent-text text-3xl hover:opacity-75 transition"><i data-lucide="linkedin"></i></a>
+                        <!-- Replace with your actual Twitter link -->
+                        
+                    </div>
+                    
+                    <!-- Resume Button -->
+                    <a href="resume.pdf" download class="inline-block px-8 py-3 rounded-lg font-semibold text-lg accent-bg text-gray-900 shadow-lg hover:shadow-xl hover:opacity-90 transition duration-300">
+                        Download Resume
+                    </a>
+                </div>
+
+                <!-- Profile Image (Right Side) -->
+                <div class="md:w-[45%] md:order-2 order-1 flex justify-center">
+                    <!-- !!! IMPORTANT: UPDATE THIS IMAGE URL WITH YOUR ACTUAL PROFILE PHOTO LINK !!! -->
+                    <div class="rounded-full w-72 h-72 border-4 accent-border overflow-hidden shadow-2xl transition duration-500 hover:scale-105">
+                        <img src="images\jagu.jpg" 
+                             alt="Jagruti Dipak Wagh Profile" 
+                             class="w-full h-full object-cover object-top"> <!-- ADDED object-top HERE -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Skills Section -->
+        <section id="skills" class="py-20 text-center">
+            <h2 class="text-4xl font-bold mb-4 accent-text">My Skills</h2>
+            <p class="text-xl text-gray-400 mb-12">Technologies and tools I work with.</p>
+
+            <!-- Skill Tabs (Programming, Web, Database, Tools) -->
+            <div class="flex justify-center flex-wrap space-x-4 mb-12">
+                
+                <button class="skill-tab-button px-6 py-2 rounded-lg font-semibold" data-skill-type="WebDevelopment">
+                    Web Development
+                </button>
+                <button class="skill-tab-button active px-6 py-2 rounded-lg font-semibold" data-skill-type="Programming">
+                    Programming
+                </button>
+                <button class="skill-tab-button px-6 py-2 rounded-lg font-semibold" data-skill-type="Database">
+                    Database
+                </button>
+                <button class="skill-tab-button px-6 py-2 rounded-lg font-semibold" data-skill-type="Tools">
+                    Tools & IDEs
+                </button>
+            </div>
+
+            <!-- Skill Cards Container -->
+            <div id="skill-cards-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 max-w-6xl mx-auto">
+                <!-- Skill Cards will be inserted here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- 3. Education Section -->
+        <section id="education" class="py-20 text-center">
+            <h2 class="text-4xl font-bold mb-16 accent-text">Education</h2>
+
+            <div class="timeline">
+                <!-- Item 1: Bachelor's Degree (Left) -->
+                <div class="timeline-container left">
+                    <div class="bg-card-bg p-6 rounded-xl shadow-lg border border-gray-800 hover:shadow-cyan-500/50 transition duration-300">
+                        <h3 class="text-xl font-bold accent-text flex items-center mb-2">
+                            <i data-lucide="graduation-cap" class="mr-2"></i> Bachelor of Technology in Information Technology
+                        </h3>
+                        <!-- Updated College Name -->
+                        <p class="text-gray-400 mb-1">Shri Vile Parle Kelavani Mandal Institute of technology</p> 
+                        <p class="text-gray-500 mb-2">2022 - 2025</p>
+                        <p class="text-lg font-semibold accent-text">GPA: 8.55</p>
+                    </div>
+                </div>
+
+                <!-- Item 2: Diploma (Right) -->
+                <div class="timeline-container right">
+                    <div class="bg-card-bg p-6 rounded-xl shadow-lg border border-gray-800 hover:shadow-cyan-500/50 transition duration-300">
+                        <h3 class="text-xl font-bold accent-text flex items-center mb-2">
+                            <i data-lucide="school" class="mr-2"></i> Diploma In Computer Technology
+                        </h3>
+                        <!-- Updated Diploma Institute Name -->
+                        <p class="text-gray-400 mb-1">K.B.H Polytechnic</p>
+                        <p class="text-gray-500 mb-2">2019 - 2022</p>
+                        <p class="text-lg font-semibold accent-text">Percentage: 83.49%</p>
+                    </div>
+                </div>
+
+                <!-- Item 3: Secondary Education (Left) -->
+                <div class="timeline-container left">
+                    <div class="bg-card-bg p-6 rounded-xl shadow-lg border border-gray-800 hover:shadow-cyan-500/50 transition duration-300">
+                        <h3 class="text-xl font-bold accent-text flex items-center mb-2">
+                            <i data-lucide="book-open-text" class="mr-2"></i> Secondary School Certificate (SSC)
+                        </h3>
+                        <!-- Updated School Name -->
+                        <p class="text-gray-400 mb-1">R.B.H Kanya Vidyalaya & Junior College</p>
+                        <p class="text-gray-500 mb-2">2018 - 2019</p>
+                        <p class="text-lg font-semibold accent-text">Percentage: 88.40%</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Projects Section -->
+        <section id="projects" class="py-20 text-center">
+            <h2 class="text-4xl font-bold mb-12 accent-text">My Projects</h2>
+            
+            <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- Project Cards will be inserted here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- 5. Contact Section -->
+        <section id="contact" class="min-h-screen pt-20 flex items-center justify-center">
+            <div class="w-full max-w-md p-8 bg-card-bg rounded-xl shadow-2xl border border-gray-800 transition duration-500 hover:shadow-cyan-500/50">
+                <h2 class="text-3xl font-bold mb-2 accent-text text-center">Contact Me</h2>
+                <p class="text-gray-400 text-center mb-8">Let's collaborate or chat! Fill out the form below.</p>
+                
+                <form id="contact-form" action="#" method="POST" class="space-y-6">
+                    <div>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required
+                               class="w-full p-3 rounded-lg bg-gray-800 text-text-light border border-gray-700 focus:border-accent-color focus:ring-1 focus:ring-accent-color transition duration-200"
+                        >
+                    </div>
+                    <div>
+                        <input type="email" id="email" name="email" placeholder="Your Email" required
+                               class="w-full p-3 rounded-lg bg-gray-800 text-text-light border border-gray-700 focus:border-accent-color focus:ring-1 focus:ring-accent-color transition duration-200"
+                        >
+                    </div>
+                    <div>
+                        <textarea id="message" name="message" rows="5" placeholder="Your Message" required
+                                  class="w-full p-3 rounded-lg bg-gray-800 text-text-light border border-gray-700 focus:border-accent-color focus:ring-1 focus:ring-accent-color transition duration-200"
+                        ></textarea>
+                    </div>
+                    <button type="submit" 
+                            class="w-full px-4 py-3 rounded-lg font-semibold text-lg accent-bg text-gray-900 shadow-xl hover:shadow-cyan-500/70 transition duration-300 transform hover:scale-[1.02]"
+                    >
+                        Send Message
+                    </button>
+                    <div id="form-message" class="mt-4 text-center hidden"></div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8 border-t border-gray-900">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-2xl font-semibold mb-4 accent-text">jagruti dipak wagh</p>
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="mailto:jagrutiwagh2320@gmail.com" class="text-gray-400 hover:accent-text text-2xl transition"><i data-lucide="mail"></i></a>
+                <a href="https://github.com/jagruti-tech" target="_blank" class="text-gray-400 hover:accent-text text-2xl transition"><i data-lucide="github"></i></a>
+                <a href="https://www.linkedin.com/in/jagruti-wagh-017948227/" target="_blank" class="text-gray-400 hover:accent-text text-2xl transition"><i data-lucide="linkedin"></i></a>
+                
+            </div>
+            <p class="text-xs text-gray-500">
+                &copy; 2025 Jagruti Dipak Wagh. Thank You.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Functionality -->
+    <script>
+        // Data structure for Skills and Projects
+        const skillData = {
+            Programming: [
+                { icon: 'Code', name: 'C#', color: '#178600' },
+                { icon: 'Layers', name: 'ASP.NET', color: '#5C2D91' },
+            ],
+            WebDevelopment: [
+                { icon: 'Framer', name: 'HTML5', color: '#E34F26' },
+                { icon: 'Feather', name: 'CSS3', color: '#1572B6' },
+                { icon: 'Chrome', name: 'JavaScript', color: '#F7DF1E' },
+                { icon: 'Atom', name: 'React', color: '#61DAFB' },
+            ],
+            Database: [
+                { icon: 'Database', name: 'SQL', color: '#4479A1' },
+                { icon: 'Server', name: 'SQL Server', color: '#CC2927' },
+                { icon: 'CircleDot', name: 'CRUD Operations', color: '#00ffff' },
+            ],
+            Tools: [
+                { icon: 'Code', name: 'Visual Studio', color: '#5C2D91' },
+                { icon: 'Code', name: 'VS Code', color: '#007ACC' },
+                { icon: 'GitBranch', name: 'GitHub', color: '#181717' },
+                { icon: 'Table', name: 'Jupyter Notebook', color: '#F37626' },
+                { icon: 'MonitorCheck', name: 'Manual Testing', color: '#2ecc71' },
+                { icon: 'TrendingUp', name: 'Data Analytics', color: '#f1c40f' },
+            ]
+        };
+
+        const projectData = [
+            {
+                name: 'PizzaMetrics: SQL-Based Sales Trend Analysis',
+                description: 'Utilized advanced SQL queries to analyze historical sales data, uncover trends, and evaluate product performance across various categories. Conducted deep dives into order patterns, seasonal fluctuations, and customer purchase behavior to extract valuable insights. Generated actionable reports to support sales forecasting, performance tracking, and strategic planning. Insights contributed to improved decision-making, enhanced customer targeting, and optimization of high-performing product lines.',
+                tech: ['SQL', 'Data Analysis', 'Reporting'],
+                link: 'https://github.com/jagruti-tech/Pizza-Sales-Analysis-Using-SQL' 
+            },
+            {
+                name: 'AI Driven Interactive Learning Platform',
+                description: 'Designed and developed an AI-based educational platform using ASP.NET and C#, enabling real-time, persona-driven learning experiences. Integrated CRUD operations, multilingual content delivery, and adaptive learning flows based on user behavior. Achieved 94% response accuracy and 86.5% user engagement through thorough manual testing and backend optimization.',
+                tech: ['ASP.NET', 'C#', 'SQL Server', 'Agile Practices'],
+                link: 'https://github.com/jagruti-tech/ai-learning-platform-placeholder' // Placeholder link
+            },
+            {
+                name: 'Spice & Bite - Online Store',
+                description: 'Developed a responsive e-commerce website showcasing homemade pickles and papads. Built a structured product catalog using HTML, styled the layout with CSS for a clean, professional design, and added interactive search functionality using JavaScript for easy product lookup.',
+                tech: ['HTML', 'CSS', 'JavaScript'],
+                link: 'https://github.com/jagruti-tech/spice-and-bite-placeholder' // Placeholder link
+            }
+        ];
+
+        // --- Core Functions ---
+
+        /**
+         * Renders the skill cards for a given skill type.
+         * @param {string} type - The key from skillData (e.g., 'Frontend').
+         */
+        function renderSkills(type) {
+            const container = document.getElementById('skill-cards-container');
+            container.innerHTML = ''; // Clear previous cards
+
+            // Default to 'Programming' if the type is invalid or missing
+            const skillsToRender = skillData[type] || skillData['Programming'];
+
+
+            skillsToRender.forEach(skill => {
+                const card = document.createElement('div');
+                // Card styling with dark background and shadow
+                card.className = 'bg-card-bg p-4 rounded-xl shadow-lg border border-gray-800 flex flex-col items-center transition duration-300 hover:scale-105 hover:shadow-cyan-500/50';
+                card.innerHTML = `
+                    <div class="text-5xl mb-2" style="color: ${skill.color};">
+                        <i data-lucide="${skill.icon}"></i>
+                    </div>
+                    <p class="font-semibold text-text-light mt-2">${skill.name}</p>
+                `;
+                container.appendChild(card);
+            });
+            // Re-render Lucide icons after adding new HTML
+            lucide.createIcons();
+        }
+
+        /**
+         * Renders all project cards.
+         */
+        function renderProjects() {
+            const container = document.getElementById('projects-container');
+            container.innerHTML = ''; // Clear previous projects
+
+            projectData.forEach(project => {
+                const card = document.createElement('div');
+                // Card styling with dark background and shadow
+                card.className = 'bg-card-bg p-6 rounded-xl shadow-2xl border border-gray-800 text-left transition duration-300 hover:shadow-cyan-500/50 hover:border-accent-color';
+                card.innerHTML = `
+                    <h3 class="text-2xl font-bold mb-3 accent-text">${project.name}</h3>
+                    <p class="text-gray-400 mb-4">${project.description}</p>
+                    <p class="text-sm font-medium text-gray-500 mb-4">
+                        Tech Stack: ${project.tech.join(', ')}
+                    </p>
+                    <a href="${project.link}" target="_blank" class="text-sm font-semibold accent-text hover:underline transition">
+                        View Project &rarr;
+                    </a>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // --- Event Listeners and Initial Load ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons on the entire page
+            lucide.createIcons();
+
+            // 1. Initial Skill Render (Default to Programming)
+            renderSkills('Programming');
+
+            // 2. Initial Project Render
+            renderProjects();
+
+            // 3. Skill Tab Click Listener
+            document.querySelector('#skills').addEventListener('click', handleSkillTabClick);
+
+            // 4. Mobile Menu Toggle
+            const menuButton = document.getElementById('menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Hide mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // 5. Contact Form Submission
+            const contactForm = document.getElementById('contact-form');
+            const formMessage = document.getElementById('form-message');
+
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // In a real deployment, you would send this data to a service like Formspree or a backend API.
+                
+                // Simulate form submission success
+                formMessage.classList.remove('hidden', 'text-red-500');
+                formMessage.classList.add('text-green-500');
+                formMessage.textContent = 'Message sent successfully! I will get back to you soon.';
+                contactForm.reset();
+
+                // Hide message after a few seconds
+                setTimeout(() => {
+                    formMessage.classList.add('hidden');
+                }, 5000);
+
+                // For a real setup using Formspree (recommended for simple static sites):
+                /*
+                fetch('YOUR_FORMSPREE_ENDPOINT', {
+                    method: 'POST',
+                    body: new FormData(contactForm)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Success logic here
+                    } else {
+                        // Error logic here
+                    }
+                });
+                */
+            });
+        });
+        
+        /**
+         * Handles the click event for skill tabs.
+         */
+        function handleSkillTabClick(event) {
+            const button = event.target.closest('.skill-tab-button');
+            if (!button) return;
+
+            // Deactivate all buttons
+            document.querySelectorAll('.skill-tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Activate the clicked button
+            button.classList.add('active');
+            
+            // Render the corresponding skills
+            const type = button.getAttribute('data-skill-type');
+            renderSkills(type);
+        }
+    </script>
+</body>
+</html>
